@@ -36,12 +36,12 @@ const commands = [
             {
                 type: 3,
                 name: "entrypoint_embed_content",
-                description: "The content of the embed that will be sent for ticket creation",
+                description: "The content of the embed that will be sent for ticket creation. Use \"\n\" for new lines.",
             },
             {
                 type: 3,
                 name: "entrypoint_embed_color",
-                description: "The color of the embed that will be sent for ticket creation (in hex)", 
+                description: "The color of the embed that will be sent for ticket creation (in hex, without the #)", 
             },
             {
                 type: 3,
@@ -51,12 +51,25 @@ const commands = [
             {
                 type: 3,
                 name: "ticket_embed_content",
-                description: "The content of the embed that will be sent when a ticket is created",
+                description: "The content of the embed that will be sent when a ticket is created. Use \"\n\" for new lines.",
             },
             {
                 type: 3,
                 name: "ticket_embed_color",
                 description: "The color of the embed that will be sent when a ticket is created (in hex)",
+            }
+        ]
+    },
+    {
+        name: "set_logs_channel",
+        description: "Set the logs channel for the bot",
+        options: [
+            {
+                type: 7,
+                name: "logs_channel",
+                description: "The channel to send logs to",
+                required: true,
+                channel_types: [0]
             }
         ]
     }
