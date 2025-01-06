@@ -35,15 +35,6 @@ export async function slash_setup_ticket_channel(interaction: ChatInputCommandIn
         flags: "Ephemeral"
     });
 
-
-    // saving in db
-    const role = interaction.options.getRole("role_to_ping", true);
-    const ticketEmbedTitle = interaction.options.getString("ticket_embed_title") || "Ticket Created";
-    const ticketEmbedContent = interaction.options.getString("ticket_embed_content")?.replace(/\\n/g, "\n") || "Welcome to your ticket! A moderator will be with you shortly. Please be patient.";
-    const ticketEmbedColor = parseInt("0x"+interaction.options.getString("ticket_embed_color")).toString() ||parseInt("0x2F3136").toString();
-
-    createTicketChannel(channel.id, interaction.guild.id, role.id, uniqueReasons.join(","), ticketEmbedTitle, ticketEmbedContent, ticketEmbedColor);
-
     // sending embed
     const embedTitle = interaction.options.getString("entrypoint_embed_title");
     const embedContent = interaction.options.getString("entrypoint_embed_content");
@@ -56,7 +47,7 @@ export async function slash_setup_ticket_channel(interaction: ChatInputCommandIn
         flags: "Ephemeral"
     });
 
-    await fetchedChannel.send({
+    const entrypointMessage = await fetchedChannel.send({
         embeds: [
             {
                 title: embedTitle || "Ticket Creation",
@@ -81,6 +72,16 @@ export async function slash_setup_ticket_channel(interaction: ChatInputCommandIn
             }
         ]
     });
+
+
+    // saving in db
+    const role = interaction.options.getRole("role_to_ping", true);
+    const ticketEmbedTitle = interaction.options.getString("ticket_embed_title") || "Ticket Created";
+    const ticketEmbedContent = interaction.options.getString("ticket_embed_content")?.replace(/\\n/g, "\n") || "Welcome to your ticket! A moderator will be with you shortly. Please be patient.";
+    const ticketEmbedColor = parseInt("0x" + interaction.options.getString("ticket_embed_color")).toString() || parseInt("0x2F3136").toString();
+    const ticketNumber = interaction.options.getInteger("ticket_number") || 0;
+
+    createTicketChannel(channel.id, entrypointMessage.id, interaction.guild.id, role.id, uniqueReasons.join(","), ticketEmbedTitle, ticketEmbedContent, ticketEmbedColor, ticketNumber);
 
     return interaction.reply({
         content: `Successfully setup tickets in this channel. It will ping the ${role.toString()} role when a ticket is created.`,

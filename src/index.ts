@@ -8,6 +8,7 @@ import { button_close_ticket } from './commands/button-close_ticket';
 import { button_close_ticket_confirm } from './commands/button-close_ticket_confirm';
 import { button_close_ticket_cancel } from './commands/button-close_ticket_cancel';
 import { slash_set_logs_channel } from './commands/slash-set_logs_channel';
+import { slash_delete_ticket_channel_setup } from './commands/slash-delete_ticket_channel_setup';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -25,6 +26,9 @@ client.on(Events.InteractionCreate, async interaction => {
             }
             case "set_logs_channel": {
                 return await slash_set_logs_channel(interaction);
+            }
+            case "delete_ticket_channel_setup": {
+                return await slash_delete_ticket_channel_setup(interaction);
             }
             default: {
                 return interaction.reply("Unknown command");

@@ -13,6 +13,7 @@ stmt.run();
 stmt = db.query(`
     CREATE TABLE IF NOT EXISTS ticket_channel (
         entrypoint_channel_id TEXT PRIMARY KEY NOT NULL,
+        entrypoint_message_id TEXT NOT NULL,
         parent_server_id TEXT NOT NULL,
         role_to_ping_id TEXT NOT NULL,
         ticket_number INTEGER NOT NULL,
@@ -40,7 +41,6 @@ stmt = db.query(`
         closed_at TEXT,
         closed_by TEXT,
 
-        FOREIGN KEY (parent_channel_id) REFERENCES ticket_channel(entrypoint_channel_id),
         FOREIGN KEY (parent_server_id) REFERENCES ticket_server(server_id)
     )`);
 
@@ -67,7 +67,7 @@ export function getLogsChannel(serverId: string) {
     }).logs_channel_id;
 }
 
-export function createTicketChannel(entrypointChannelId: string, parentServerId: string, roleToPingId: string, ticketReasons: string, ticketEmbedTitle: string, ticketEmbedContent: string, ticketEmbedColor: string) {
+export function createTicketChannel(entrypointChannelId: string, entrypointMessageId: string, parentServerId: string, roleToPingId: string, ticketReasons: string, ticketEmbedTitle: string, ticketEmbedContent: string, ticketEmbedColor: string, tickerNumber: number) {
     let stmt = db.query(`SELECT * FROM ticket_server WHERE server_id = ?`);
     const result = stmt.get(parentServerId);
     if (!result) {
@@ -75,13 +75,15 @@ export function createTicketChannel(entrypointChannelId: string, parentServerId:
         stmt.run(parentServerId);
     }
 
-    stmt = db.query(`INSERT INTO ticket_channel (entrypoint_channel_id, parent_server_id, role_to_ping_id, ticket_reasons, ticket_embed_title, ticket_embed_content, ticket_embed_color, ticket_number) VALUES (?, ?, ?, ?, ?, ?, ?, 0)`);
-    stmt.run(entrypointChannelId, parentServerId, roleToPingId, ticketReasons, ticketEmbedTitle, ticketEmbedContent, ticketEmbedColor);
+    stmt = db.query(`INSERT INTO ticket_channel (entrypoint_channel_id, entrypoint_message_id, parent_server_id, role_to_ping_id, ticket_reasons, ticket_embed_title, ticket_embed_content, ticket_embed_color, ticket_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+    stmt.run(entrypointChannelId, entrypointMessageId, parentServerId, roleToPingId, ticketReasons, ticketEmbedTitle, ticketEmbedContent, ticketEmbedColor, tickerNumber);
 }
 
 export function getTicketChannel(entrypointChannelId: string) {
     const stmt = db.query(`SELECT * FROM ticket_channel WHERE entrypoint_channel_id = ?`);
     return stmt.get(entrypointChannelId) as {
+        entrypoint_channel_id: string,
+        entrypoint_message_id: string,
         role_to_ping_id: string,
         ticket_number: number,
         ticket_reasons: string,
@@ -89,6 +91,11 @@ export function getTicketChannel(entrypointChannelId: string) {
         ticket_embed_content: string,
         ticket_embed_color: string
     };
+}
+
+export function deleteTicketChannel(entrypointChannelId: string) {
+    const stmt = db.query(`DELETE FROM ticket_channel WHERE entrypoint_channel_id = ?`);
+    stmt.run(entrypointChannelId);
 }
 
 export function incrementTicketNumber(entrypointChannelId: string): number {

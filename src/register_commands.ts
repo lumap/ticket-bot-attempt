@@ -29,6 +29,11 @@ const commands = [
                 required: true
             },
             {
+                type: 4,
+                name: "ticket_number",
+                description: "Which ticket number to start at, minus one (defaults to 0)",
+            },
+            {
                 type: 3,
                 name: "entrypoint_embed_title",
                 description: "The title of the embed that will be sent for ticket creation",
@@ -57,6 +62,19 @@ const commands = [
                 type: 3,
                 name: "ticket_embed_color",
                 description: "The color of the embed that will be sent when a ticket is created (in hex)",
+            }
+        ]
+    },
+    {
+        name: "delete_ticket_channel_setup",
+        description: "Deletes the ticket setup in a channel. Threads in the channel are not deleted.",
+        options: [
+            {
+                type: 7,
+                name: "channel",
+                description: "The channel to delete the ticket setup from",
+                required: true,
+                channel_types: [0]
             }
         ]
     },
