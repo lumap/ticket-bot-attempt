@@ -1,0 +1,16 @@
+{
+  "name": "ticket",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "bufferutil": "^4.0.9",
+    "discord.js": "^14.17.2",
+    "zlib-sync": "^0.1.9"
+  }
+}
