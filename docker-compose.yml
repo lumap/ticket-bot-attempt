@@ -1,0 +1,10 @@
+services:
+  ticketbot:
+    build: .
+    container_name: ticketbot
+    volumes:
+      - ./tickets.sqlite:/app/tickets.sqlite
+    env_file:
+      - .env
+    command: bun run index.ts
+    restart: always
