@@ -1,14 +1,15 @@
 import { Client, Events, GatewayIntentBits } from 'discord.js';
 
-import { slash_setup_ticket_channel } from './commands/slash-setup_ticket_channel';
-import { button_create_ticket } from './commands/button-create_ticket';
-import { select_create_ticket_with_reason } from './commands/select-create_ticket_with_reason';
-import { button_claim_ticket } from './commands/button-claim_ticket';
-import { button_close_ticket } from './commands/button-close_ticket';
-import { button_close_ticket_confirm } from './commands/button-close_ticket_confirm';
-import { button_close_ticket_cancel } from './commands/button-close_ticket_cancel';
-import { slash_set_logs_channel } from './commands/slash-set_logs_channel';
-import { slash_delete_ticket_channel_setup } from './commands/slash-delete_ticket_channel_setup';
+import { slash_setup_ticket_channel } from './commands/slash:setup_ticket_channel';
+import { button_create_ticket } from './commands/button:create_ticket';
+import { select_create_ticket_with_reason } from './commands/select:create_ticket_with_reason';
+import { button_claim_ticket } from './commands/button:claim_ticket';
+import { button_close_ticket } from './commands/button:close_ticket';
+import { button_close_ticket_confirm } from './commands/button:close_ticket_confirm';
+import { button_close_ticket_cancel } from './commands/button:close_ticket_cancel';
+import { slash_set_logs_channel } from './commands/slash:set_logs_channel';
+import { slash_delete_ticket_channel_setup } from './commands/slash:delete_ticket_channel_setup';
+import { button_create_transcript } from './commands/button:create_transcript';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -37,7 +38,7 @@ client.on(Events.InteractionCreate, async interaction => {
     }
 
     if (interaction.isButton()) {
-        switch (interaction.customId) {
+        switch (interaction.customId.split(":")[0]) {
             case "create_ticket": {
                 return await button_create_ticket(interaction);
             }
@@ -52,6 +53,9 @@ client.on(Events.InteractionCreate, async interaction => {
             }
             case "close_ticket_cancel": {
                 return await button_close_ticket_cancel(interaction);
+            }
+            case "create_transcript": {
+                return await button_create_transcript(interaction);
             }
             default: {
                 return interaction.reply("Unknown button");

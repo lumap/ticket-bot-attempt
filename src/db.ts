@@ -79,18 +79,20 @@ export function createTicketChannel(entrypointChannelId: string, entrypointMessa
     stmt.run(entrypointChannelId, entrypointMessageId, parentServerId, roleToPingId, ticketReasons, ticketEmbedTitle, ticketEmbedContent, ticketEmbedColor, tickerNumber);
 }
 
+export interface TicketChannel {
+    entrypoint_channel_id: string,
+    entrypoint_message_id: string,
+    role_to_ping_id: string,
+    ticket_number: number,
+    ticket_reasons: string,
+    ticket_embed_title: string,
+    ticket_embed_content: string,
+    ticket_embed_color: string
+}
+
 export function getTicketChannel(entrypointChannelId: string) {
     const stmt = db.query(`SELECT * FROM ticket_channel WHERE entrypoint_channel_id = ?`);
-    return stmt.get(entrypointChannelId) as {
-        entrypoint_channel_id: string,
-        entrypoint_message_id: string,
-        role_to_ping_id: string,
-        ticket_number: number,
-        ticket_reasons: string,
-        ticket_embed_title: string,
-        ticket_embed_content: string,
-        ticket_embed_color: string
-    };
+    return stmt.get(entrypointChannelId) as TicketChannel;
 }
 
 export function deleteTicketChannel(entrypointChannelId: string) {
@@ -113,18 +115,20 @@ export function createTicket(parentChannelId: string, parentServerId: string, th
     stmt.run(parentChannelId, parentServerId, threadId, createdBy, createdAt, reason, claimMessageId);
 }
 
+export interface Ticket {
+    thread_id: string,
+    parent_channel_id: string,
+    created_by: string,
+    created_at: string,
+    reason: string,
+    claim_message_id: string,
+    claimed_by: string,
+    closed: boolean
+}
+
 export function getTicket(threadId: string) {
     const stmt = db.query(`SELECT * FROM ticket WHERE thread_id = ?`);
-    return stmt.get(threadId) as {
-        thread_id: string,
-        parent_channel_id: string,
-        created_by: string,
-        created_at: string,
-        reason: string,
-        claim_message_id: string,
-        claimed_by: string,
-        closed: boolean
-    };
+    return stmt.get(threadId) as Ticket;
 }
 
 export function claimTicket(threadId: string, claimedBy: string) {

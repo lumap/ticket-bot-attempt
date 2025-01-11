@@ -8,4 +8,4 @@ COPY package.json /app
 
 RUN bun i
 
-COPY src/ .
+COPY src/ src/

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./tw.css" rel="stylesheet">
+    <title>Ticket Transcript</title>
+</head>
+
+<body class="bg-gray-700 text-white p-4">
+    <h1 class="text-3xl font-bold">
+        Ticket transcript of {{ ticket }}
+        <!-- <a class="text-blue-400 underline" href="https://discord.com/channels/${interaction.guild!.id}/${ticketChannel.id}/${ticketThread.id}">#${ticketThread.name}</a> -->
+    </h1>
+
+    <hr class="my-2">
+
+    <div class="flex flex-col gap-3">
+        {{ messages }}
+        <!-- <div class="flex flex-row gap-4">
+            <img class="size-14 rounded-full" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="meow's pfp">
+            <div class="flex flex-col">
+                <div class="flex flex-row gap-2">
+                    <span>meow</span>
+                    <span class="text-gray-300">2025-01-11T15:54:40.582Z</span>
+                    <div class="bg-blue-600 px-1 rounded-md">Bot</div>
+                </div>
+                <p>@lumap</p>
+            </div>
+        </div>
+
+        <div class="flex flex-row gap-4">
+            <img class="size-14 rounded-full" src="https://cdn.discordapp.com/avatars/585278686291427338/63e087a228786aea727d8149c771f9ea.png?size=1024" alt="meow's pfp">
+            <div class="flex flex-col">
+                <div class="flex flex-row gap-2">
+                    <span>lumap</span>
+                    <span class="text-gray-300">2025-01-11T15:54:40.582Z</span>
+                    <div class="bg-green-600 px-1 rounded-md">Ticket author</div>
+                </div>
+                <p>Hi</p>
+                <img class="max-w-64 max-h-64"
+                    src="https://cdn.discordapp.com/attachments/1327667002432688141/1327669668453810248/91160A4A-7676-45C0-A146-40CFFD93E35A.jpeg?ex=6783e83b&is=678296bb&hm=cf3a0fe031ee509a099fc031032f850321f419a90a6ad14e4ac27364c7848993&"
+                    alt="">
+            </div>
+        </div>
+
+        <div class="flex flex-row gap-4">
+            <img class="size-14 rounded-full"
+                src="message avatar"
+                alt="meow's pfp">
+            <div class="flex flex-col">
+                <div class="flex flex-row gap-2">
+                    <span>message username</span>
+                    <span class="text-gray-300">message createdAt</span>
+                    <div class="bg-red-600 px-1 rounded-md">Mod</div>
+                </div>
+                <p>message content</p>
+                <img class="max-w-96 max-h-96" src="https://cdn.discordapp.com/attachments/1327667002432688141/1327669668453810248/91160A4A-7676-45C0-A146-40CFFD93E35A.jpeg?ex=6783e83b&is=678296bb&hm=cf3a0fe031ee509a099fc031032f850321f419a90a6ad14e4ac27364c7848993&" alt="">
+            </div>
+        </div> -->
+    </div>
+</body>
+
+</html>

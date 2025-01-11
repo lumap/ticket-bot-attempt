@@ -3,12 +3,15 @@
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/adm-zip": "^0.5.7",
+    "@types/bun": "latest",
+    "tailwindcss": "^3.4.17"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "adm-zip": "^0.5.16",
     "bufferutil": "^4.0.9",
     "discord.js": "^14.17.2",
     "zlib-sync": "^0.1.9"
