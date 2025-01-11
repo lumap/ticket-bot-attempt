@@ -1,4 +1,4 @@
-import type { ButtonInteraction, GuildMember, ThreadChannel } from "discord.js";
+import { ButtonStyle, ComponentType, type ButtonInteraction, type GuildMember, type ThreadChannel } from "discord.js";
 import { closeTicket, getLogsChannel, getTicket } from "../db";
 
 export async function button_close_ticket_confirm(interaction: ButtonInteraction) {
@@ -43,9 +43,25 @@ export async function button_close_ticket_confirm(interaction: ButtonInteraction
                     content: interaction.channel.toString(),
                     embeds: [
                         {
-                            title: "Ticket Created",
+                            title: "Ticket Closed",
                             description: `Ticket closed by ${interaction.user}`,
                             color: parseInt("0xFF0000")
+                        }
+                    ],
+                    components: [
+                        {
+                            type: ComponentType.ActionRow,
+                            components: [
+                                {
+                                    type: ComponentType.Button,
+                                    style: ButtonStyle.Primary,
+                                    label: "Create Transcript",
+                                    emoji: {
+                                        name: "📜"
+                                    },
+                                    custom_id: `create_transcript:${interaction.channelId}`
+                                }
+                            ]
                         }
                     ]
                 });
